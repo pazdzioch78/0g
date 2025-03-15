@@ -23,7 +23,7 @@ for auto swap 0g testnet
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com:pazdzioch78/0g.git
+   git clone https://github.com/pazdzioch78/0g.git
    cd 0g
    ```
 
