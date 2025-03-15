@@ -23,8 +23,8 @@ for auto swap 0g testnet
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/ahlulmukh/0g-bot.git
-   cd 0g-bot
+   git clone https://github.com:pazdzioch78/0g.git
+   cd 0g
    ```
 
 2. Instal Packages and build packages:
@@ -61,8 +61,7 @@ npm run start
 
 ## Stay Connected
 
-- Channel Telegram : [Telegram](https://t.me/elpuqus)
-- Channel WhatsApp : [Whatsapp](https://whatsapp.com/channel/0029VavBRhGBqbrEF9vxal1R)
+- Channel Telegram : [Telegram](https://t.me/)
 - Discord : [Discord](https://discord.com/invite/uKM4UCAccY)
 
 ## Donation
