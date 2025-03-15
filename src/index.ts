@@ -7,12 +7,11 @@ import { logMessage, prompt } from "./utils/logger";
 async function main(): Promise<void> {
   console.log(
     chalk.cyan(`
-░▄▀▄░█▀▀░░░░░█▀▄░█▀█░▀█▀
-░█/█░█░█░▄▄▄░█▀▄░█░█░░█░
-░░▀░░▀▀▀░░░░░▀▀░░▀▀▀░░▀░
+░▄▀▄░█▀▀
+░█/█░█░█
+░░▀░░▀▀▀
   By : El Puqus Airdrop
-   github.com/ahlulmukh
- Use it at your own risk
+   Use it at your own risk
   `)
   );
 
