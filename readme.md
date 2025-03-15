@@ -62,7 +62,7 @@ npm run start
 ## Stay Connected
 
 - Channel Telegram : [Telegram](https://t.me/)
-- Discord : [Discord](https://discord.com/invite/uKM4UCAccY)
+- Discord : [Discord](https://github.com/pazdzioch78)
 
 ## Donation
 
