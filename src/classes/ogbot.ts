@@ -441,7 +441,8 @@ export class ogBot {
       logMessage(this.currentNum, this.total, `Amount: ${randomAmount}`, "success");
       logMessage(this.currentNum, this.total, `BlockHash URL: https://chainscan-newton.0g.ai/tx/${txHash}`, "success");
       console.log(chalk.white("-".repeat(85)));
-      await setTimeout(5000);
+      const randomDelay = Math.floor(Math.random() * (15000 - 5000 + 1)) + 5000; // Losowe opóźnienie od 5 do 15 sekund
+	  await setTimeout(randomDelay);
       const btcDesimals = 18;
       const randomBtcAmount = parseFloat(
         (Math.random() * (0.0005 - 0.0002) + 0.0002).toFixed(6)
