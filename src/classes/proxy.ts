@@ -4,7 +4,6 @@ import fs from "fs";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { SocksProxyAgent } from "socks-proxy-agent";
 const { logMessage } = require("../utils/logger");
-
 let proxyList: string[] = [];
 let axiosConfig: AxiosRequestConfig = {};
 
@@ -27,6 +26,7 @@ export function getProxyAgent(proxyUrl: string, index: number, total: number): H
     return undefined;
   }
 }
+
 export function loadProxies(): boolean {
   try {
     const proxyFile = fs.readFileSync("proxy.txt", "utf8");
@@ -40,7 +40,6 @@ export function loadProxies(): boolean {
         }
         return proxy;
       });
-
     if (proxyList.length === 0) {
       throw new Error("No proxies found in proxies.txt");
     }
@@ -79,24 +78,31 @@ export async function getRandomProxy(index: number, total: number): Promise<stri
     await checkIP(index, total);
     return null;
   }
-
-  let proxyAttempt = 0;
-  while (proxyAttempt < proxyList.length) {
-    const proxy = proxyList[Math.floor(Math.random() * proxyList.length)];
-    try {
-      const agent = getProxyAgent(proxy, index, total);
-      if (!agent) continue;
-
-      axiosConfig.httpsAgent = agent;
-      await checkIP(index, total);
-      return proxy;
-    } catch (error) {
-      proxyAttempt++;
+  
+  // Przypisanie stałego proxy na podstawie indeksu
+  const assignedIndex = (index - 1) % proxyList.length;
+  const assignedProxy = proxyList[assignedIndex];
+  
+  try {
+    const agent = getProxyAgent(assignedProxy, index, total);
+    if (!agent) {
+      logMessage(index, total, `Nie udało się utworzyć agenta proxy dla ${assignedProxy}. Pomijam ten privkey.`, "error");
+      return null;
     }
+    
+    axiosConfig.httpsAgent = agent;
+    
+    // Sprawdzamy, czy proxy faktycznie działa
+    try {
+      await checkIP(index, total);
+      return assignedProxy;
+    } catch (error) {
+      logMessage(index, total, `Proxy ${assignedProxy} nie działa. Pomijam ten privkey.`, "error");
+      return null;
+    }
+  } catch (error) {
+    logMessage(index, total, `Błąd przy konfiguracji proxy ${assignedProxy}: ${(error as Error).message}. Pomijam ten privkey.`, "error");
+    return null;
   }
-
-  console.log(chalk.red("[!] Using default IP"));
-  axiosConfig = {};
-  await checkIP(index, total);
-  return null;
+  
 }
